@@ -45,6 +45,8 @@
 
     <link rel="stylesheet"  href="{% static 'styles/single_styles.css' %}">
     <link rel="stylesheet"  href="{% static 'styles/single_responsive.css' %}">
+    <link rel="stylesheet"  href="{% static 'styles/contact_styles.css' %}">
+    <link rel="stylesheet"  href="{% static 'styles/contact_responsive.css' %}">
     <!-- <script type="text/javascript" >
 
 
@@ -106,18 +108,35 @@
                         <i class="fa fa-angle-down"></i>
                       </a>
                       <ul class="account_selection">
-                        <li>
-                          <a href="#"
-                            ><i class="fa fa-sign-in" aria-hidden="true"></i
-                            >Sign In</a
-                          >
-                        </li>
-                        <li>
-                          <a href="#"
-                            ><i class="fa fa-user-plus" aria-hidden="true"></i
-                            >Register</a
-                          >
-                        </li>
+                          {% if user.id is None %}
+                              <li>
+                                <a href="{% url 'login' %}"
+                                  ><i class="fa fa-sign-in" aria-hidden="true"></i
+                                  >Sign In</a
+                                >
+                              </li>
+                              <li>
+                                <a href="{% url 'register' %}"
+                                  ><i class="fa fa-user-plus" aria-hidden="true"></i
+                                  >Register</a
+                                >
+                              </li>
+                          {% else %}
+                              <li>
+                                <a href="{% url 'logout' %}"
+                                  ><i class="fa fa-sign-in" aria-hidden="true"></i
+                                  >Logout</a
+                                >
+                              </li>
+                              <li>
+                                <a href="{% url 'dashboard' %}"
+                                  ><i class="fa-solid fa-gauge" aria-hidden="true"></i
+                                  >Dashboard</a
+                                >
+                              </li>
+
+                          <!--  -->
+                          {% endif %}
                       </ul>
                     </li>
                   </ul>
@@ -148,14 +167,23 @@
                     <!-- <li><a href="#">promotion</a></li>
                     <li><a href="#">pages</a></li>
                     <li><a href="#">blog</a></li> -->
-                    <li><a href="contact.html">contact</a></li>
+                    
+                    {% if user.id is not None %}
+                       <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                       
+                       
+                       <li><a href="#">contact</a></li>
+                       <li><a href="{% url 'logout' %}">Logout</a></li>
+                        <li class="border border-info p-2">Welcome, {{ user.first_name}}</li>
+                    {% else %}
+                      <li><a href="{% url 'login' %}">Login</a></li>
+                      <li><a href="{% url 'register' %}">Register</a></li>
+                      <li><a href="#">contact</a></li>
+                       <li class="border border-info p-2"> Welcome Guest </li>
+                    {% endif %}
+                    
                   </ul>
-                  <!-- <form class="form-inline my-0 my-lg-0">
-                    <input class="form-control mr-sm-0" type="search" placeholder="Search">
-                    <span><a href="#" style="border:1px solid grey; padding:0.5rem"
-                    ><i class="fa fa-search" aria-hidden="true"></i
-                  ></a></span>
-                  </form> -->
+               
                   <ul class="navbar_user">
                     
                     <li class="currency" style="background-color: white; border:none">
@@ -165,7 +193,7 @@
                       <ul class="currency_selection" >
                         <li>
                           <form action="{% url 'search' %}" method="GET" class="search">
-                            <input type="text" class="form-control" name="keyword" placeholder="Search..."  >
+                            <input type="text" class="form-control" name="keyword" autocomplete="off" placeholder="Search..."  >
 
                           </form>
                           
@@ -173,24 +201,16 @@
                         
                       </ul>
                     </li>
-<!--                    
-  INPUT SEARCH              
-                    <li>
-                      <a href="#"
-                        ><i class="fa fa-search" aria-hidden="true"></i
-                      ></a>
-                    </li> -->
-                    
-                    
-                    
-                    
-                    
-                    <!--  END OF SEARCH -->
-                    <li>
-                      <a href="#"
-                        ><i class="fa fa-user" aria-hidden="true"></i
-                      ></a>
-                    </li>
+
+                    <!-- ACCOUNT -->
+                    <li class="account" style="background-color: white;">
+                      <a href="#">                       
+                        <i class="fa fa-user mr-5" aria-hidden="true"></i>
+                        
+                      </a>
+                      
+
+                    <!--  END ACCOUNT -->
                     <li class="checkout">
                       <a href="{% url 'cart' %}">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -199,6 +219,8 @@
                         >
                       </a>
                     </li>
+
+
                     
                   </ul>
                   <div class="hamburger_container">
@@ -252,25 +274,58 @@
                 <i class="fa fa-angle-down"></i>
               </a>
               <ul class="menu_selection">
-                <li>
-                  <a href="#"
-                    ><i class="fa fa-sign-in" aria-hidden="true"></i>Sign In</a
-                  >
-                </li>
-                <li>
-                  <a href="#"
-                    ><i class="fa fa-user-plus" aria-hidden="true"></i
-                    >Register</a
-                  >
-                </li>
+                {% if user.id is None %}
+                              <li>
+                                <a href="{% url 'login' %}"
+                                  ><i class="fa fa-sign-in" aria-hidden="true"></i
+                                  >Sign In</a
+                                >
+                              </li>
+                              <li>
+                                <a href="{% url 'register' %}"
+                                  ><i class="fa fa-user-plus" aria-hidden="true"></i
+                                  >Register</a
+                                >
+                              </li>
+                          {% else %}
+                              <li>
+                                <a href="{% url 'logout' %}"
+                                  ><i class="fa fa-sign-in" aria-hidden="true"></i
+                                  >Logout</a
+                                >
+                              </li>
+                              <li>
+                                <a href="{% url 'dashboard' %}"
+                                  ><i class="fa-solid fa-gauge" aria-hidden="true"></i
+                                  >Dashboard</a
+                                >
+                              </li>
+
+                          <!--  -->
+                          {% endif %}
               </ul>
             </li>
             <li class="menu_item"><a href="{% url 'home' %}">home</a></li>
             <li class="menu_item"><a href="{% url 'store' %}">store</a></li>
-            <li class="menu_item"><a href="#">promotion</a></li>
-            <li class="menu_item"><a href="#">pages</a></li>
-            <li class="menu_item"><a href="#">blog</a></li>
-            <li class="menu_item"><a href="#">contact</a></li>
+            
+            
+            <!-- <li class="menu_item"><a href="#">pages</a></li>
+            <li class="menu_item"><a href="#">blog</a></li> -->
+            {% if user.id is not None %}
+                       <li class="menu_item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                      
+                       
+                       <li class="menu_item"><a href="#">contact</a></li>
+                       <li  class="menu_item"><a href="{% url 'logout' %}">Logout</a></li>
+                        <li class="border border-info p-2">Welcome, {{ user.first_name}}</li>
+                    {% else %}
+                      <li class="menu_item"><a href="{% url 'login' %}">Login</a></li>
+                      <li class="menu_item"><a href="{% url 'register' %}">Register</a></li>
+                      <li class="menu_item"><a href="#">contact</a></li>
+                       <li class="border border-info p-2"> Welcome Guest </li>
+                    {% endif %}
+            
+           
           </ul>
         </div>
       </div>
