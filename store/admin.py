@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Product, Variation
+from .models import Product, Variation, ReviewRating
 # Register your models here.
 
 
@@ -18,3 +18,10 @@ class VariationAdmin(admin.ModelAdmin):
     list_filter = ['product', 'variation_category',
                    'variation_value']
     list_editable = ['is_active']
+
+
+@admin.register(ReviewRating)
+class ReviewRatingAdmin(admin.ModelAdmin):
+    # prepopulated_fields = {'slug': ["product_name"]}
+    list_display = ['product', 'user', 'rating',
+                    'subject', 'ip', 'status', 'created_at', 'updated_at']
